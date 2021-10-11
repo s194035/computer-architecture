@@ -1,0 +1,24 @@
+li a4, 0x100000 //reg with memory base address
+li a5, 0x100000 //reg with final memory address
+addi a5, a5, 400
+//100 * 0x4 iterations offset
+lw a0, 0(a4) //load first value in array as highest/lowest value
+lw a1, 0(a4)
+loop:
+lw a3, 0(a4)
+//load value from adress found in reg a4
+blt a3, a0, lessthan
+//a3 less than a0
+blt a1, a3, greaterthan //a3 greater than a1
+addi a4, a4, 0x4 //increment address with four to get next int
+beq a4, a5, exit
+j loop
+lessthan:
+add a0, x0, a3
+addi a4, a4, 0x4
+j loop
+greaterthan:
+add a1, x0, a3
+addi a4, a4, 0x1
+j loop
+exit:
