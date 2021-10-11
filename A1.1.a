@@ -1,0 +1,8 @@
+add t1, x1, x4
+srli t1, t1, 3
+slli t1, t1, 3
+beq t1, x4, CONFIRM
+CONFIRM:
+addi x1,x1,0
+j EXIT
+EXIT:
