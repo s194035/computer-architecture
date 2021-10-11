@@ -1,0 +1,32 @@
+aa: .word a
+bb: .word b
+cc: .word c
+dd: .word d
+
+.text
+.globl main
+
+main:
+  lw a0, aa
+  lw a1, bb
+  lw a2, cc
+  lw a3, dd
+  jal x1, complexMul
+  nop
+  j end
+  nop
+
+altComplexMul:
+  add x20, a0, a1 //a+b
+  sub x21, a3, a2 //d-c
+  add x22, a2, a3 //c+d
+
+  mul x25, a2, x20 // c(a+b)
+  mul x26, a0, x21 // a(d-c)
+  mul x27, a1, x22 // b(c+d)
+  
+  sub a0, x25, x27 // k1-k3
+  add a1, x25, x26 // k1+k2
+  jalr x0, 0(x1)
+end:
+nop
